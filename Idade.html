@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de idade</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+    background: rgb(99, 122, 111);
+    font: normal 15pt ariel;
+}
+
+header {
+    color: white;
+    text-align: center;
+}
+
+section {
+    background: snow;
+    border-radius: 10px;
+    padding: 15px;
+    width: 500px;
+    margin: auto;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.377);
+}
+
+footer {
+    color: white;
+    text-align: center;
+    font-style: italic;
+}
+
+#res {
+    text-align: center;
+}
+
+img {
+    padding: 3px;
+}
+
+#btn {
+    text-transform: uppercase;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    background-color: #5e746a3f;
+    box-shadow: 3px 3px 10px #7d9b69da;
+    border-radius: 7px;
+}
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Verificador de idade</h1>
+    </header>
+    <section>
+        <div>
+            <p>Ano de Nascimento:
+                <input type="number" name="'txtano" id="txtano" min="0">
+            </p>
+            <p>sexo:
+                <input type="radio" name="radsex" id="masc" checked>
+                <label for="masc">Masculino</label>
+                <input type="radio" name="radsex" id="fem">
+                <label for="fem">Feminino</label>
+            </p>
+            <p>
+                <input id="btn" type="button" value="Verificar" onclick="verificar()">
+            </p>
+        </div>
+        <div id='res'>
+            Preencha os dados acima para ver os resultados!
+        </div>
+    </section>
+    <footer>
+        <p>&copy;GabrielAntunes</p>
+    </footer>
+    <script >
+        function verificar() {
+    var data = new Date()
+    var ano = data.getFullYear()
+    var fano = document.getElementById('txtano')
+    var res = document.querySelector('div#res')
+    if (fano.value.length == 0 || fano.value > ano) {
+        window.alert('[ERRO] Verificar os dados e tente novamente!')
+    } else {
+        var fsex = document.getElementsByName('radsex')
+        var idade = ano - Number(fano.value)
+        var genero = ''
+        var img = document.createElement('img')
+        img.setAttribute('id', 'foto')
+        if (fsex[0].checked) {
+            genero = 'Homem'
+            if (idade >= 0 && idade < 10) {
+                //Criança
+                img.setAttribute('src','imagens/menino.png')
+            } else if (idade < 21) {
+                //Jovem
+                img.setAttribute('src', 'imagens/jovemle.png')
+            } else if (idade < 50) {
+                //Adulto
+                img.setAttribute('src', 'imagens/adultole.png')
+            } else {
+                //Idoso
+                img.setAttribute('src', 'imagens/velho.png')
+            }
+        } else if (fsex[1].checked) {
+            genero = 'Mulher'
+            if (idade >= 0 && idade < 10) {
+                //Criança
+                img.setAttribute('src', 'imagens/menina.png')
+            } else if (idade < 21) {
+                //Jovem
+                img.setAttribute('src', 'imagens/jovemla.png')
+            } else if (idade < 50) {
+                //Adulto
+                img.setAttribute('src', 'imagens/adultola.png')
+            } else {
+                //Idoso
+                img.setAttribute('src', 'imagens/velha.png')
+            }
+        }
+        res.style.textAling = 'center'
+        res.innerHTML = `Detectamos ${genero} com ${idade} anos`
+        res.appendChild(img)
+    }
+}
+    </script>
+</body>
+
+</html>
